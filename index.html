@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>More Fun with jQuery</title>
+  <style>
+
+  .form-group {
+    margin-bottom: 40px;
+  }
+
+/*  .tooltip {
+    display: none;
+  }*/
+
+  </style>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="./script.js"></script>
+</head>
+<body>
+  <form action="#">
+
+    <div class="form-group">
+      <label for="text-input">Text Input</label><br>
+      <input id="text-input" name="text-input" type="text">
+      <div class="tooltip"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="textarea-input">Textarea Input</label><br>
+      <textarea name="textarea-input" id="textarea-input" cols="30" rows="10"></textarea>
+      <div class="tooltip"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="password-input">Password</label><br>
+      <input id="password-input" name="password-input" type="password">
+      <div class="tooltip"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="password-confirmation">Password Confirmation</label><br>
+      <input id="password-confirmation" name="password-confirmation" type="password">
+      <div class="tooltip"></div>
+    </div>
+
+  </form>
+</body>
+</html>
