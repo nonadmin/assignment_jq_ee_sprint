@@ -1,10 +1,10 @@
 "use strict";
 
-var toolTip = function(obj, tipText, tipID) {
-  var tipParent = obj.closest(".form-group").children(".tooltip");
+var toolTip = function(field, tipText, tipID) {
+  var tipParent = field.closest(".form-group").children(".tooltip");
   var tipDiv = tipParent.children(("#" + tipID));
 
-  if ( obj.val().length > 0 ) {
+  if ( field.val().length > 0 ) {
     
     if ( tipDiv[0] ) {
       tipDiv.text(tipText);
@@ -18,18 +18,15 @@ var toolTip = function(obj, tipText, tipID) {
   }
 };
 
-var maxLength = function(obj, val) {
-  var maxLengthText = (val - obj.val().length) + " characters remaining";
-  toolTip(obj, maxLengthText, "max-length");
-};
 
-var fieldMatch = function(field1, field2) {
-  return field1.val() === field2.val();
+var maxLength = function(field, val) {
+  var maxLengthText = (val - field.val().length) + " characters remaining";
+  toolTip(field, maxLengthText, "max-length");
 };
 
 
 var passwordMatch = function(confirm_field, password_field) {
-  if (!(fieldMatch(confirm_field, password_field))) {
+  if (confirm_field.val() !== password_field.val()) {
     toolTip(confirm_field, "confirmation does not match", "pw-confirm");
   } else {
     $("#pw-confirm").remove();
@@ -37,35 +34,84 @@ var passwordMatch = function(confirm_field, password_field) {
 };
 
 
-var fieldError = function(field, errorText) {
+var addFieldError = function(field, errorText, errorID) {
   var fieldParent = field.closest(".form-group");
-  var errorDiv = $("<div>").addClass("error-text").text(errorText);
+  var errorDiv = $("<div>").addClass("error-text")
+                           .attr("id", "error-" + errorID)
+                           .text(errorText);
 
-  fieldParent.children().last().after(errorDiv);
+  if (!(fieldParent.children("#error-" + errorID)[0])) {  
+    fieldParent.children().last().after(errorDiv);
+    fieldParent.addClass("error-group");
+  }
+};
+
+
+var removeFieldError = function(field, errorID) {
+  var fieldParent = field.closest(".form-group");
+  var errorDiv = fieldParent.children("#error-" + errorID);
+
+  errorDiv.remove();
+
+  if (!(fieldParent.children(".error-text")[0])) {
+    fieldParent.removeClass("error-group");
+  }
+};
+
+
+var validateField = function(field, criteria, errorText, errorID){
+  if (!criteria) {
+    addFieldError(field, errorText, errorID);
+  } else {
+    removeFieldError(field, errorID);
+  }
+};
+
+var between = function(num, min, max) {
+  return num >= min && num <= max;
 };
 
 $( document ).ready( function(){
   //event handlerz
+  var text = $("#text-input");
+  var textArea = $("#textarea-input");
+  var password = $("#password-input");
+  var pwConfirm = $("#password-confirmation");
 
-  $("#text-input").on("input", function() {
+  text.on("input", function() {
     maxLength($(this), 32);
   });
 
-  $("#textarea-input").on("input", function() {
+  textArea.on("input", function() {
     maxLength($(this), 140);
   });
 
-  $("#password-input").on("input", function() {
+  password.on("input", function() {
     maxLength($(this), 16);
   });
 
-  $("#password-confirmation").on("input", function() {
+  pwConfirm.on("input", function() {
     maxLength($(this), 16);
     passwordMatch($(this), $("#password-input"));
   });
 
-  $("input:submit").on("submit", function(e) {
-    e.preventDefault();
+  $("form").on("submit", function() {
+    validateField(text, between(text.val().length, 6, 16),
+                        "too short", "short");
+
+    validateField(textArea, between(textArea.val().length, 4, 140),
+                        "too short", "short");
+
+    validateField(password, between(password.val().length, 6, 16),
+                        "too short", "short");
+
+    validateField(pwConfirm, between(pwConfirm.val().length, 6, 16),
+                        "too short", "short");
+
+    validateField(pwConfirm, (password.val() === pwConfirm.val()),
+                        "confirmation does not match", "pw-confirm");
+
+    return false;
   });
 
 });
