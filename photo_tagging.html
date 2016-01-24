@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tagging a Photo with jQuery</title>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="./photo_tagging.js"></script>
+  <style>
+
+  img {
+    display: block;
+  }
+
+  .photo-container {
+    position: relative;
+    display: inline-block;
+    border: 2px solid #000;
+    overflow: hidden;
+  }
+
+  .tag-box {
+    width: 100px;
+    height: 100px;
+    z-index: 5;
+    position: absolute;
+  }
+
+  .tag-active {
+    border: 4px solid #F00;
+  }
+
+  .tag-set {
+    border: 4px solid #0F3;
+  }
+
+  .friend-list {
+    position: relative;
+    width: 100px;
+    top: 100px;
+    left: -4px;
+    border: 4px solid #0F3;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    background-color: #bbb;
+  }
+
+  li {
+    padding: 2px 4px;
+    cursor: pointer;
+  }
+
+  .active {
+    background-color: #ddd;
+  }
+
+  .set {
+    background-color: #0F3;
+  }
+
+  </style>
+</head>
+<body>
+
+<div class="photo-container">
+  <img src="leah_justin_biggie.jpg" alt="">
+</div>
+
+</body>
+</html>
