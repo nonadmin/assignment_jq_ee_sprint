@@ -23,13 +23,25 @@ var maxLength = function(obj, val) {
   toolTip(obj, maxLengthText, "max-length");
 };
 
+var fieldMatch = function(field1, field2) {
+  return field1.val() === field2.val();
+};
+
 
 var passwordMatch = function(confirm_field, password_field) {
-  if (confirm_field.val() !== password_field.val()) {
+  if (!(fieldMatch(confirm_field, password_field))) {
     toolTip(confirm_field, "confirmation does not match", "pw-confirm");
   } else {
     $("#pw-confirm").remove();
   }
+};
+
+
+var fieldError = function(field, errorText) {
+  var fieldParent = field.closest(".form-group");
+  var errorDiv = $("<div>").addClass("error-text").text(errorText);
+
+  fieldParent.children().last().after(errorDiv);
 };
 
 $( document ).ready( function(){
@@ -50,6 +62,10 @@ $( document ).ready( function(){
   $("#password-confirmation").on("input", function() {
     maxLength($(this), 16);
     passwordMatch($(this), $("#password-input"));
+  });
+
+  $("input:submit").on("submit", function(e) {
+    e.preventDefault();
   });
 
 });
