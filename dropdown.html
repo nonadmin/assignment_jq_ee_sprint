@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dropdown with jQuery</title>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="./dropdown.js"></script>
+  <style>
+
+  div {
+    border: 1px solid #000;
+    display: inline-block;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+  }
+
+  li {
+    padding: 2px 4px;
+    cursor: pointer;
+  }
+  
+  .hidden {
+    display:none;
+  }
+
+  .dropdown-active {
+    background-color: #bbb;
+  }
+
+  .option-active {
+    background-color: #ddd;
+  }
+
+  </style>
+</head>
+<body>
+
+<form action="#">
+  <div>
+    <ul id="dropdown">
+      <li id="dropdown-select">Pick A Snack</li>
+      <li class="option hidden">Apples</li>
+      <li class="option hidden">Oranges</li>
+      <li class="option hidden">Bananas</li>
+      <li class="option hidden">Grapes</li>
+      <li class="option hidden">Berries</li>
+    </ul>
+  </div>
+</form>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 "use strict";
 
+// "tooltips"
 var toolTip = function(field, tipText, tipID) {
   var tipParent = field.closest(".form-group").children(".tooltip");
   var tipDiv = tipParent.children(("#" + tipID));
@@ -34,6 +35,7 @@ var passwordMatch = function(confirm_field, password_field) {
 };
 
 
+// field validation
 var addFieldError = function(field, errorText, errorID) {
   var fieldParent = field.closest(".form-group");
   var errorDiv = $("<div>").addClass("error-text")
@@ -78,17 +80,11 @@ $( document ).ready( function(){
   var password = $("#password-input");
   var pwConfirm = $("#password-confirmation");
 
-  text.on("input", function() {
-    maxLength($(this), 32);
-  });
+  text.on("input", function() { maxLength($(this), 32); });
 
-  textArea.on("input", function() {
-    maxLength($(this), 140);
-  });
+  textArea.on("input", function() { maxLength($(this), 140); });
 
-  password.on("input", function() {
-    maxLength($(this), 16);
-  });
+  password.on("input", function() { maxLength($(this), 16); });
 
   pwConfirm.on("input", function() {
     maxLength($(this), 16);
@@ -100,16 +96,16 @@ $( document ).ready( function(){
                         "too short", "short");
 
     validateField(textArea, between(textArea.val().length, 4, 140),
-                        "too short", "short");
+                            "too short", "short");
 
     validateField(password, between(password.val().length, 6, 16),
-                        "too short", "short");
+                            "too short", "short");
 
     validateField(pwConfirm, between(pwConfirm.val().length, 6, 16),
-                        "too short", "short");
+                            "too short", "short");
 
     validateField(pwConfirm, (password.val() === pwConfirm.val()),
-                        "confirmation does not match", "pw-confirm");
+                             "confirmation does not match", "pw-confirm");
 
     return false;
   });
