@@ -21,6 +21,8 @@ $( document ).ready( function() {
                                   .attr("name", "snack")
                                   .val($(this).text());
     $("form").append(optionValue).submit();
+
+    // populate input rather than create elements
   });
 
 });
